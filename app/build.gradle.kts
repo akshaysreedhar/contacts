@@ -28,6 +28,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "API_KEY", "\"${properties["api_key"]}\"")
+        }
+        debug {
+            buildConfigField("String", "API_KEY", "\"${properties["api_key"]}\"")
         }
     }
     compileOptions {
@@ -38,6 +42,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }
