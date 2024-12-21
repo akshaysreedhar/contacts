@@ -46,7 +46,7 @@ class SaveFragment : Fragment() {
     }
 
     /**
-     * Settting up the view and actions
+     * Setting up the view and actions
      */
     private fun setupView() {
         with(binding) {
@@ -72,11 +72,11 @@ class SaveFragment : Fragment() {
                     ),
                     PhoneNumber(
                         args.numberList[2],
-                        phoneNumberViewList[2].spNumber.selectedItem.toString()
+                        phoneNumberViewList[2].spNumber.selectedItem.toString() + " 1"
                     ),
                     PhoneNumber(
                         args.numberList[3],
-                        phoneNumberViewList[3].spNumber.selectedItem.toString()
+                        phoneNumberViewList[3].spNumber.selectedItem.toString() + " 2"
                     ),
                 )
                 val canProceed = viewmodel.validateType(listOfPhoneNumbersToBeSaved)
