@@ -1,11 +1,13 @@
 package com.akzhey.contacts.presentation.view.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.akzhey.contacts.R
 
 class NumberAdapter(
@@ -31,6 +33,13 @@ class NumberAdapter(
         val view = inflater.inflate(R.layout.item_spinner, p2, false)
         val item = getItem(p0) as String
         view.findViewById<TextView>(R.id.tvSpinner).text = item
+        //Setting background color of disabled item
+        val color = if (selectedTypeList.contains(p0)) {
+            Color.GRAY
+        } else {
+            Color.TRANSPARENT
+        }
+        view.findViewById<ConstraintLayout>(R.id.clSpinnerBackground).setBackgroundColor(color)
         return view
     }
 

@@ -26,18 +26,30 @@ class StartViewModel @Inject constructor(private val getPhoneNumberUseCase: GetP
     fun getPhoneNumbers() {
         _phoneNumber.value = Response.Loading()
         viewModelScope.launch(Dispatchers.IO) {
-            val taskList = listOf(
-                async { getPhoneNumberUseCase() },
-                async { getPhoneNumberUseCase() },
-                async { getPhoneNumberUseCase() },
+            val taskList = (1..4).map {
                 async { getPhoneNumberUseCase() }
-            )
+            }
             try {
                 val result = taskList.awaitAll()
-                val phoneNumberList = result.map {
-                    it.data ?: ""
+                var errorMessage = ""
+                result.forEach {
+                    if (it.message?.isNotBlank() == true) {
+                        errorMessage = it.message
+                    }
                 }
-                _phoneNumber.postValue(Response.Success(data = phoneNumberList))
+                if (errorMessage.isNotBlank()) {
+                    _phoneNumber.postValue(
+                        Response.Error(
+                            message = errorMessage
+                        )
+                    )
+                } else {
+                    val phoneNumberList = result.map {
+                        it.data ?: ""
+                    }
+                    _phoneNumber.postValue(Response.Success(data = phoneNumberList))
+                }
+
             } catch (e: Exception) {
                 _phoneNumber.postValue(
                     Response.Error(
@@ -48,6 +60,9 @@ class StartViewModel @Inject constructor(private val getPhoneNumberUseCase: GetP
         }
     }
 
+    /**
+     * Setting response to null after moving to next fragment
+     */
     fun setResponseToNull() {
         _phoneNumber.value = null
     }
