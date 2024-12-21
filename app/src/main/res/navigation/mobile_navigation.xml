@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_start">
+
+    <fragment
+        android:id="@+id/navigation_start"
+        android:name="com.akzhey.contacts.presentation.view.StartFragment"
+        android:label="@string/start"
+        tools:layout="@layout/fragment_start">
+
+        <action
+            android:id="@+id/start_to_save"
+            app:destination="@+id/navigation_save" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_save"
+        android:name="com.akzhey.contacts.presentation.view.SaveFragment"
+        android:label="@string/save"
+        tools:layout="@layout/fragment_save_number">
+
+        <argument
+            android:name="numberList"
+            app:argType="string[]" />
+
+        <action
+            android:id="@+id/save_to_show"
+            app:destination="@id/navigation_show" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_show"
+        android:name="com.akzhey.contacts.presentation.view.ShowFragment"
+        android:label="@string/show"
+        tools:layout="@layout/fragment_show_number" />
+</navigation>
